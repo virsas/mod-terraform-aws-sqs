@@ -21,7 +21,7 @@ resource "aws_sqs_queue" "vss_deadletter" {
 }
 
 resource "aws_sqs_queue" "vss" {
-  name                       = var.fifo ? "${var.name}.fifo" : ${var.name}
+  name                       = var.fifo ? "${var.name}.fifo" : var.name
   fifo_queue                 = var.fifo
 
   sqs_managed_sse_enabled           = var.sse_enablad ? true : null
@@ -34,7 +34,7 @@ resource "aws_sqs_queue" "vss" {
   delay_seconds              = var.delay_seconds
   receive_wait_time_seconds  = var.receive_wait_time_seconds
 
-  redrive_policy = var.deadletter_enabled ? jsonencode({ deadLetterTargetArn = aws_sqs_queue.vss_deadletter.arn, maxReceiveCount = try(var.deadletter_failures_count })
+  redrive_policy = var.deadletter_enabled ? jsonencode({ deadLetterTargetArn = aws_sqs_queue.vss_deadletter.arn, maxReceiveCount = var.deadletter_failures_count })
 }
 
 data "template_file" "vss" {
