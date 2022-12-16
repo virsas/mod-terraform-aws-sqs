@@ -46,7 +46,7 @@ data "template_file" "vss" {
 resource "aws_sqs_queue_policy" "policy" {
   count = var.policy_enabled ? 1 : 0
 
-  queue_url = aws_sqs_queue.vss.arn
+  queue_url = aws_sqs_queue.vss.url
   policy = data.template_file.vss[0].rendered
 
   depends_on = [aws_sqs_queue.vss]
