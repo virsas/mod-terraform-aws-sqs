@@ -13,7 +13,7 @@ resource "aws_sqs_queue" "vss_deadletter" {
   name                       = var.fifo ? "${var.name}_deadletter.fifo" : "${var.name}_deadletter"
   fifo_queue                 = var.fifo
 
-  sqs_managed_sse_enabled           = var.sse_enablad ? true : null
+  sqs_managed_sse_enabled           = var.sse_enabled ? true : null
   kms_master_key_id                 = var.sse_enabled ? null : try(var.kms, null)
   kms_data_key_reuse_period_seconds = var.kms_reuse_in_seconds
 
