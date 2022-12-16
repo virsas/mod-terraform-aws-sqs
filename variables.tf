@@ -98,3 +98,13 @@ variable "deadletter_failures_count" {
   type        = number
   default     = 3
 }
+variable "policy_enabled" {
+  description = "Enable/Disable access policy for this queue. Defaults to False"
+  type        = bool
+  default     = false
+}
+variable "policy_path" {
+  description = "Path to directory with all the policies. By default ./json/sqs/NAME.json where the name is the name of the bucket"
+  type        = string
+  default     = "./json/sqs"
+}

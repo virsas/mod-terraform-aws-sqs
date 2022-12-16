@@ -22,6 +22,8 @@ Terraform module to create S3 bucket
 - **deadletter_enabled** - Enable / Disable deadletter queue. Queue with messages that were received by consumere, but never deleted. Defaults to true.
 - **deadletter_message_retention_seconds** - The number of seconds Deadletter queue will retain a message from 60 to 1209600 secconds. Defaults to 1209600 (14 days).
 - **deadletter_failures_count** - The number of times a consumer tries receiving a message from a queue without deleting it before being moved to the dead-letter queue. Defaults to 3
+- **policy_enabled** - Enable/Disable access policy for this queue.
+- **policy_path** - Path to directory with all the policies. By default ./json/sqs/NAME.json where the name is the name of the bucket
 
 ## Example
 
