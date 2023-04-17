@@ -41,7 +41,7 @@ resource "aws_sqs_queue_policy" "policy" {
   count = var.policy_enabled ? 1 : 0
 
   queue_url = aws_sqs_queue.vss.url
-  policy = templatefile("${var.policy_path}/${var.name}.json")
+  policy = templatefile("${var.policy_path}/${var.name}.json", {})
 
   depends_on = [aws_sqs_queue.vss]
 }
