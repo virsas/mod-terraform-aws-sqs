@@ -37,17 +37,11 @@ resource "aws_sqs_queue" "vss" {
   redrive_policy = var.deadletter_enabled ? jsonencode({ deadLetterTargetArn = aws_sqs_queue.vss_deadletter[0].arn, maxReceiveCount = var.deadletter_failures_count }) : null
 }
 
-data "template_file" "vss" {
-  count = var.policy_enabled ? 1 : 0
-
-  template = file("${var.policy_path}/${var.name}.json")
-}
-
 resource "aws_sqs_queue_policy" "policy" {
   count = var.policy_enabled ? 1 : 0
 
   queue_url = aws_sqs_queue.vss.url
-  policy = data.template_file.vss[0].rendered
+  policy = templatefile("${var.policy_path}/${var.name}.json")
 
   depends_on = [aws_sqs_queue.vss]
 }
